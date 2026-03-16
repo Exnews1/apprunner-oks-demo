@@ -1,0 +1,569 @@
+﻿npx : FAIL 
+tests/api.test.js
+At line:1 char:1
++ npx jest > 
+test-results.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo     
+         : 
+NotSpecified: (FAI    
+L tests/api.test.js:St 
+   ring) [], 
+RemoteExcept    ion
+    + 
+FullyQualifiedErrorI   
+ d : NativeCommandError
+ 
+  Document 
+Intelligence Engine API
+    Health Check
+      ΓêÜ should 
+return 200 OK from 
+health endpoint (27 ms)
+    Classification 
+Engine Accuracy
+      ΓêÜ should 
+classify Policy 
+correctly (1 ms)
+      ΓêÜ should 
+classify SOP correctly 
+(1 ms)
+      ΓêÜ should 
+classify Training 
+Material correctly
+      ΓêÜ should 
+classify Memorandum 
+correctly (1 ms)
+      ΓêÜ should 
+classify Procedure 
+correctly
+      ΓêÜ should 
+classify Form correctly
+      ΓêÜ should 
+classify Other 
+correctly when no 
+patterns match (1 ms)
+    Document Upload & 
+Multer Validation
+      ΓêÜ should 
+reject invalid file 
+types (e.g. .exe) (7 
+ms)
+      ├ù should accept 
+valid PDF uploads and 
+ingest them into the 
+staging queue (14 ms)
+    Staging Queue 
+Retreival
+      ├ù should 
+retrieve pending 
+documents (8 ms)
+    Staging Mutations
+      ├ù should modify 
+a document 
+classification and 
+recalculate its 
+standard name (9 ms)
+    Document Actions
+      ├ù should 
+approve a document and 
+move it to the 
+repository (13 ms)
+      ├ù should no 
+longer display the 
+document in pending 
+queue (4 ms)
+      ├ù should 
+display the approved 
+document in the 
+repository (8 ms)
+    Audit Trail 
+Governance
+      ├ù should fetch 
+the audit log 
+containing recent 
+upload, modify, and 
+approval actions (9 ms)
+    Session Isolation 
+& Demo Reset
+      ├ù should not 
+see documents from 
+Session 1 in Session 2 
+(8 ms)
+      ├ù should 
+correctly reset the 
+demo and delete 
+Session 1 data (21 ms)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Document 
+Upload & Multer 
+Validation ΓÇ║ should 
+accept valid PDF 
+uploads and ingest 
+them into the staging 
+queue
+
+    expect(received).to
+Be(expected) // 
+Object.is equality
+
+    Expected: 201
+    Received: 500
+
+    [0m [90m 114 
+|[39m         [33m.[
+39mattach([32m'documen
+t'[39m[33m,[39m [32
+m'test-upload.pdf'[39m
+)[33m;[39m
+     [90m 115 |[39m  
+     
+    [31m[1m>[22m[39
+m[90m 116 |[39m      
+ expect(res[33m.[39ms
+tatus)[33m.[39mtoBe(
+[35m201[39m)[33m;[39
+m
+     [90m     |[39m  
+                       
+ [31m[1m^[22m[39m
+     [90m 117 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39msucce
+ss)[33m.[39mtoBe([36
+mtrue[39m)[33m;[39m
+     [90m 118 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39mdata)
+[33m.[39mtoHaveProper
+ty([32m'id'[39m)[33m
+;[39m
+     [90m 119 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39mdata
+[33m.[39mstatus)[33m.
+[39mtoBe([32m'pending
+'[39m)[33m;[39m[0m
+
+      at Object.toBe (t
+ests/api.test.js:116:26
+)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Staging Queue 
+Retreival ΓÇ║ should 
+retrieve pending 
+documents
+
+    expect(received).to
+Be(expected) // 
+Object.is equality
+
+    Expected: 200
+    Received: 500
+
+    [0m [90m 129 
+|[39m         [33m.[
+39m[36mget[39m([32m'
+/api/documents/pending'
+[39m)
+     [90m 130 |[39m  
+       [33m.[39m[36m
+set[39m([32m'x-sessio
+n-id'[39m[33m,[39m 
+[33mTEST_SESSION_ID[39
+m)[33m;[39m
+    [31m[1m>[22m[39
+m[90m 131 |[39m      
+ expect(res[33m.[39ms
+tatus)[33m.[39mtoBe(
+[35m200[39m)[33m;[39
+m
+     [90m     |[39m  
+                       
+ [31m[1m^[22m[39m
+     [90m 132 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39msucce
+ss)[33m.[39mtoBe([36
+mtrue[39m)[33m;[39m
+     [90m 133 |[39m  
+     expect([33mArray
+[39m[33m.[39misArray(
+res[33m.[39mbody[33m
+.[39mdata))[33m.[39m
+toBe([36mtrue[39m)[3
+3m;[39m
+     [90m 134 |[39m  
+     [0m
+
+      at Object.toBe (t
+ests/api.test.js:131:26
+)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Staging 
+Mutations ΓÇ║ should 
+modify a document 
+classification and 
+recalculate its 
+standard name
+
+    expect(received).to
+Be(expected) // 
+Object.is equality
+
+    Expected: 200
+    Received: 500
+
+    [0m [90m 151 
+|[39m         [33m.[
+39msend(payload)[33m;
+[39m
+     [90m 152 |[39m
+    [31m[1m>[22m[39
+m[90m 153 |[39m      
+ expect(res[33m.[39ms
+tatus)[33m.[39mtoBe(
+[35m200[39m)[33m;[39
+m
+     [90m     |[39m  
+                       
+ [31m[1m^[22m[39m
+     [90m 154 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39msucce
+ss)[33m.[39mtoBe([36
+mtrue[39m)[33m;[39m
+     [90m 155 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39mdata
+[33m.[39mdoc_type)[33
+m.[39mtoBe([32m'Polic
+y'[39m)[33m;[39m
+     [90m 156 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39mdata
+[33m.[39msubject)[33m
+.[39mtoBe([32m'Financ
+e'[39m)[33m;[39m[0m
+
+      at Object.toBe (t
+ests/api.test.js:153:26
+)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Document 
+Actions ΓÇ║ should 
+approve a document and 
+move it to the 
+repository
+
+    expect(received).to
+Be(expected) // 
+Object.is equality
+
+    Expected: 200
+    Received: 500
+
+    [0m [90m 168 
+|[39m         [33m.[
+39msend(payload)[33m;
+[39m
+     [90m 169 |[39m
+    [31m[1m>[22m[39
+m[90m 170 |[39m      
+ expect(res[33m.[39ms
+tatus)[33m.[39mtoBe(
+[35m200[39m)[33m;[39
+m
+     [90m     |[39m  
+                       
+ [31m[1m^[22m[39m
+     [90m 171 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39msucce
+ss)[33m.[39mtoBe([36
+mtrue[39m)[33m;[39m
+     [90m 172 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39mdata)
+[33m.[39mtoBeDefined(
+)[33m;[39m
+     [90m 173 |[39m  
+   })[33m;[39m[0m
+
+      at Object.toBe (t
+ests/api.test.js:170:26
+)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Document 
+Actions ΓÇ║ should no 
+longer display the 
+document in pending 
+queue
+
+    TypeError: Cannot 
+read properties of 
+undefined (reading 
+'find')
+
+    [0m [90m 177 
+|[39m         [33m.[
+39m[36mget[39m([32m'
+/api/documents/pending'
+[39m)
+     [90m 178 |[39m  
+       [33m.[39m[36m
+set[39m([32m'x-sessio
+n-id'[39m[33m,[39m 
+[33mTEST_SESSION_ID[39
+m)[33m;[39m
+    [31m[1m>[22m[39
+m[90m 179 |[39m      
+ [36mconst[39m found 
+[33m=[39m res[33m.[
+39mbody[33m.[39mdata
+[33m.[39mfind(d 
+[33m=>[39m 
+d[33m.[39mid 
+[33m===[39m 
+stagedDocId)[33m;[39m
+     [90m     |[39m  
+                       
+          
+[31m[1m^[22m[39m
+     [90m 180 |[39m  
+     expect(found)[33m
+.[39mtoBeUndefined()[
+33m;[39m
+     [90m 181 |[39m  
+   })[33m;[39m
+     [90m 182 
+|[39m[0m
+
+      at Object.find (t
+ests/api.test.js:179:35
+)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Document 
+Actions ΓÇ║ should 
+display the approved 
+document in the 
+repository
+
+    expect(received).to
+Be(expected) // 
+Object.is equality
+
+    Expected: 200
+    Received: 500
+
+    [0m [90m 185 
+|[39m         [33m.[
+39m[36mget[39m([32m'
+/api/documents/reposito
+ry'[39m)
+     [90m 186 |[39m  
+       [33m.[39m[36m
+set[39m([32m'x-sessio
+n-id'[39m[33m,[39m 
+[33mTEST_SESSION_ID[39
+m)[33m;[39m
+    [31m[1m>[22m[39
+m[90m 187 |[39m      
+ expect(res[33m.[39ms
+tatus)[33m.[39mtoBe(
+[35m200[39m)[33m;[39
+m
+     [90m     |[39m  
+                       
+ [31m[1m^[22m[39m
+     [90m 188 |[39m  
+     [36mconst[39m 
+found [33m=[39m res[
+33m.[39mbody[33m.[39
+mdata[33m.[39mfind(d 
+[33m=>[39m d[33m.[3
+9moriginal_name 
+[33m===[39m [32m'tes
+t-upload.pdf'[39m)[33
+m;[39m
+     [90m 189 |[39m  
+     expect(found)[33m
+.[39mtoBeDefined()[33
+m;[39m
+     [90m 190 |[39m  
+   })[33m;[39m[0m
+
+      at Object.toBe (t
+ests/api.test.js:187:26
+)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Audit Trail 
+Governance ΓÇ║ should 
+fetch the audit log 
+containing recent 
+upload, modify, and 
+approval actions
+
+    expect(received).to
+Be(expected) // 
+Object.is equality
+
+    Expected: 200
+    Received: 500
+
+    [0m [90m 196 
+|[39m         [33m.[
+39m[36mget[39m([32m'
+/api/audit'[39m)
+     [90m 197 |[39m  
+       [33m.[39m[36m
+set[39m([32m'x-sessio
+n-id'[39m[33m,[39m 
+[33mTEST_SESSION_ID[39
+m)[33m;[39m
+    [31m[1m>[22m[39
+m[90m 198 |[39m      
+ expect(res[33m.[39ms
+tatus)[33m.[39mtoBe(
+[35m200[39m)[33m;[39
+m
+     [90m     |[39m  
+                       
+ [31m[1m^[22m[39m
+     [90m 199 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39msucce
+ss)[33m.[39mtoBe([36
+mtrue[39m)[33m;[39m
+     [90m 200 |[39m  
+     
+     [90m 201 |[39m  
+     [36mconst[39m 
+logs [33m=[39m res[3
+3m.[39mbody[33m.[39m
+data[33m;[39m[0m
+
+      at Object.toBe (t
+ests/api.test.js:198:26
+)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Session 
+Isolation & Demo Reset 
+ΓÇ║ should not see 
+documents from Session 
+1 in Session 2
+
+    expect(received).to
+Be(expected) // 
+Object.is equality
+
+    Expected: 200
+    Received: 500
+
+    [0m [90m 215 
+|[39m         [33m.[
+39m[36mget[39m([32m'
+/api/documents/reposito
+ry'[39m)
+     [90m 216 |[39m  
+       [33m.[39m[36m
+set[39m([32m'x-sessio
+n-id'[39m[33m,[39m 
+[33mTEST_SESSION_ID_2[
+39m)[33m;[39m
+    [31m[1m>[22m[39
+m[90m 217 |[39m      
+ expect(res[33m.[39ms
+tatus)[33m.[39mtoBe(
+[35m200[39m)[33m;[39
+m
+     [90m     |[39m  
+                       
+ [31m[1m^[22m[39m
+     [90m 218 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39mdata
+[33m.[39mlength)[33m.
+[39mtoBe([35m0[39m)
+[33m;[39m
+     [90m 219 |[39m  
+   })[33m;[39m
+     [90m 220 
+|[39m[0m
+
+      at Object.toBe (t
+ests/api.test.js:217:26
+)
+
+  ΓùÅ Document 
+Intelligence Engine 
+API ΓÇ║ Session 
+Isolation & Demo Reset 
+ΓÇ║ should correctly 
+reset the demo and 
+delete Session 1 data
+
+    expect(received).to
+Be(expected) // 
+Object.is equality
+
+    Expected: 200
+    Received: 500
+
+    [0m [90m 224 
+|[39m         [33m.[
+39m[36mset[39m([32m'
+x-session-id'[39m[33m
+,[39m [33mTEST_SESSIO
+N_ID[39m)[33m;[39m
+     [90m 225 |[39m  
+     
+    [31m[1m>[22m[39
+m[90m 226 |[39m      
+ expect(res[33m.[39ms
+tatus)[33m.[39mtoBe(
+[35m200[39m)[33m;[39
+m
+     [90m     |[39m  
+                       
+ [31m[1m^[22m[39m
+     [90m 227 |[39m  
+     expect(res[33m.[
+39mbody[33m.[39msucce
+ss)[33m.[39mtoBe([36
+mtrue[39m)[33m;[39m
+     [90m 228 |[39m
+     [90m 229 |[39m  
+     [90m// Verify 
+the repo is now empty 
+for session 1[39m[0m
+
+      at Object.toBe (t
+ests/api.test.js:226:26
+)
+
+Test Suites: 1 failed, 
+1 total
+Tests:       9 failed, 
+9 passed, 18 total
+Snapshots:   0 total
+Time:        0.541 s, 
+estimated 1 s
+Ran all test suites.

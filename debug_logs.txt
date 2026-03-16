@@ -1,0 +1,20 @@
+[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+/app/node_modules/path-to-regexp/dist/index.js:96
+            throw new PathError(`Missing parameter name at index ${index}`, str);
+            ^
+
+PathError [TypeError]: Missing parameter name at index 6: /demo*; visit https://git.new/pathToRegexpError for info
+    at name (/app/node_modules/path-to-regexp/dist/index.js:96:19)
+    at parse (/app/node_modules/path-to-regexp/dist/index.js:113:68)
+    at pathToRegexp (/app/node_modules/path-to-regexp/dist/index.js:267:58)
+    at Object.match (/app/node_modules/path-to-regexp/dist/index.js:237:30)
+    at matcher (/app/node_modules/router/lib/layer.js:86:23)
+    at new Layer (/app/node_modules/router/lib/layer.js:93:62)
+    at Function.route (/app/node_modules/router/index.js:428:17)
+    at Function.route (/app/node_modules/express/lib/application.js:257:22)
+    at app.<computed> [as get] (/app/node_modules/express/lib/application.js:478:22)
+    at Object.<anonymous> (/app/server.js:74:5) {
+  originalPath: '/demo*'
+}
+
+Node.js v18.20.8
