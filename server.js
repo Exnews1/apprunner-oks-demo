@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 
 // Multer middleware
 const upload = require('./middleware/upload');
@@ -22,7 +23,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.disable('x-powered-by');
+app.use(helmet());
+app.use(cors({ 
+  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://50.17.88.250:3000']
+}));
 app.use(express.json());
 
 // Database Connection is handled in auditController.js automatically

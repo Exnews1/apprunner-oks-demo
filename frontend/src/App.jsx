@@ -101,7 +101,7 @@ const App = () => {
       <main className="flex-grow flex flex-row overflow-hidden h-[calc(100vh-73px)]">
         
         {/* LEFT PANEL: Intake & Governance (45%) */}
-        <div className="w-[45%] border-r border-gray-200 bg-gray-50 flex flex-col h-full overflow-y-auto custom-scrollbar">
+        <div className="w-[45%] bg-gray-50 flex flex-col h-full overflow-y-auto custom-scrollbar relative z-0">
           <div className="p-6 space-y-6">
             
             <section>
@@ -131,8 +131,13 @@ const App = () => {
           </div>
         </div>
 
+        {/* VERTICAL DIVIDER */}
+        <div className="w-1.5 bg-slate-200 border-x border-slate-300 z-10 flex flex-col justify-center items-center shadow-[0_0_10px_rgba(0,0,0,0.1)]">
+          <div className="h-12 w-0.5 bg-slate-400 rounded-full"></div>
+        </div>
+
         {/* RIGHT PANEL: Repository (55%) */}
-        <div className="w-[55%] bg-white flex flex-col h-full overflow-y-auto">
+        <div className="flex-1 bg-white flex flex-col h-full overflow-y-auto relative z-0">
           <RepositoryPanel sessionId={sessionId} refreshTrigger={refreshTrigger} />
         </div>
 

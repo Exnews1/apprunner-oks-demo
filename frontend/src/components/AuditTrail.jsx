@@ -48,7 +48,7 @@ const AuditTrail = ({ sessionId, refreshTrigger }) => {
         <span className="text-[10px] text-slate-400 font-mono">APPEND-ONLY</span>
       </div>
       
-      <div className="overflow-y-auto p-4 space-y-3 custom-scrollbar">
+      <div className="overflow-y-auto p-4 space-y-3 custom-scrollbar" aria-live="polite">
         {logs.length === 0 ? (
           <p className="text-xs text-center text-gray-400 py-4 font-mono">Awaiting system events...</p>
         ) : (

@@ -6,6 +6,7 @@ const StagingQueue = ({ sessionId, refreshTrigger, onActionSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({ doc_type: '', subject: '' });
+  const [processingIds, setProcessingIds] = useState(new Set());
 
   useEffect(() => {
     fetchPending();
@@ -27,6 +28,8 @@ const StagingQueue = ({ sessionId, refreshTrigger, onActionSuccess }) => {
   };
 
   const handeAction = async (id, action) => {
+    if (processingIds.has(id)) return;
+    setProcessingIds(prev => new Set(prev).add(id));
     try {
       await fetch(`/api/documents/${id}/${action}`, {
         method: 'POST',
@@ -39,10 +42,18 @@ const StagingQueue = ({ sessionId, refreshTrigger, onActionSuccess }) => {
       onActionSuccess();
     } catch (err) {
       console.error(err);
+    } finally {
+      setProcessingIds(prev => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
     }
   };
 
   const handleModify = async (id) => {
+    if (processingIds.has(id)) return;
+    setProcessingIds(prev => new Set(prev).add(id));
     try {
       await fetch(`/api/documents/${id}/modify`, {
         method: 'PUT',
@@ -60,6 +71,12 @@ const StagingQueue = ({ sessionId, refreshTrigger, onActionSuccess }) => {
       onActionSuccess();
     } catch (err) {
       console.error(err);
+    } finally {
+      setProcessingIds(prev => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
     }
   };
 
@@ -111,7 +128,7 @@ const StagingQueue = ({ sessionId, refreshTrigger, onActionSuccess }) => {
                     <input 
                       type="text" 
                       value={editForm.doc_type}
-                      onChange={e => setEditForm({...editForm, doc_type: e.target.value})}
+                      onChange={e => setEditForm({...editForm, doc_type: e.target.value.replace(/[^a-zA-Z0-9 ]/g, '')})}
                       className="w-full text-sm border border-gray-300 rounded px-2 py-1.5 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
@@ -120,7 +137,7 @@ const StagingQueue = ({ sessionId, refreshTrigger, onActionSuccess }) => {
                     <input 
                       type="text" 
                       value={editForm.subject}
-                      onChange={e => setEditForm({...editForm, subject: e.target.value})}
+                      onChange={e => setEditForm({...editForm, subject: e.target.value.replace(/[^a-zA-Z0-9 ]/g, '')})}
                       className="w-full text-sm border border-gray-300 rounded px-2 py-1.5 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
@@ -151,6 +168,7 @@ const StagingQueue = ({ sessionId, refreshTrigger, onActionSuccess }) => {
           {!editingId && editingId !== doc.id && (
             <div className="bg-gray-50 border-t border-gray-100 flex items-center justify-between px-4 py-2.5">
               <button 
+                tabIndex="0"
                 onClick={() => startEdit(doc)}
                 className="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded hover:bg-blue-100 transition-colors"
               >
@@ -158,14 +176,18 @@ const StagingQueue = ({ sessionId, refreshTrigger, onActionSuccess }) => {
               </button>
               <div className="flex space-x-2">
                 <button 
+                  tabIndex="0"
                   onClick={() => handeAction(doc.id, 'reject')}
-                  className="flex items-center text-sm font-medium text-rose-700 hover:text-rose-800 bg-white border border-rose-200 px-3 py-1.5 rounded shadow-sm hover:bg-rose-50 transition-colors"
+                  disabled={processingIds.has(doc.id)}
+                  className="flex items-center text-sm font-medium text-rose-700 hover:text-rose-800 bg-white border border-rose-200 px-3 py-1.5 rounded shadow-sm hover:bg-rose-50 transition-colors disabled:opacity-50"
                 >
                   <XCircle size={15} className="mr-1.5" /> Reject
                 </button>
                 <button 
+                  tabIndex="0"
                   onClick={() => handeAction(doc.id, 'approve')}
-                  className="flex items-center text-sm font-medium text-emerald-700 hover:text-emerald-800 bg-emerald-50 border border-emerald-200 px-4 py-1.5 rounded shadow-sm hover:bg-emerald-100 transition-colors"
+                  disabled={processingIds.has(doc.id)}
+                  className="flex items-center text-sm font-medium text-emerald-700 hover:text-emerald-800 bg-emerald-50 border border-emerald-200 px-4 py-1.5 rounded shadow-sm hover:bg-emerald-100 transition-colors disabled:opacity-50"
                 >
                   <CheckCircle size={15} className="mr-1.5" /> Approve Match
                 </button>
